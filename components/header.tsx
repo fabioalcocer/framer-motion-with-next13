@@ -1,9 +1,11 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion } from "framer-motion";
 import Link from 'next/link'
 import { Container } from './container'
 import { CartIcon } from './icons/cart'
+import { usePathname } from "next/navigation";
+
 
 const links = [
   { href: '/products', label: 'Products' },
@@ -17,6 +19,8 @@ const links = [
 ]
 
 export const Header = () => {
+  const path = usePathname()
+  
   return (
     <header className='relative z-10 w-full bg-beige'>
       <Container className='flex items-center border-b border-black py-8'>
@@ -28,6 +32,12 @@ export const Header = () => {
             {links.map((link) => (
               <li key={link.href}>
                 <Link className='relative' href={link.href}>
+                {link.href === path && (
+                    <motion.span
+                      layoutId="underline"
+                      className="absolute left-0 top-full block h-[1px] w-full bg-black"
+                    />
+                  )}
                   {link.label}
                 </Link>
               </li>
